@@ -1,5 +1,6 @@
 package com.example.myroom.viewmodel
 
+import com.example.myroom.room.Siswa
 
 
 class EntryViewModel(private val repositoriSiswa: RepositoriSiswa): ViewModel() {
