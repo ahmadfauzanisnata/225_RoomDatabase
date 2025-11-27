@@ -41,3 +41,23 @@ data class DetailSiswa(
     val nama: String = "",
     val alamat: String = "",
     val telpon: String = ""
+)
+
+/* Fungsi untuk mengkonversi data input ke data dalam tabel sesuai jenis datanya*/
+fun DetailSiswa.toSiswa(): Siswa = Siswa(
+    id = id,
+    nama = nama,
+    alamat = alamat,
+    telpon = telpon
+)
+
+fun Siswa.toUiStateSiswa(isEntryValid: Boolean = false): UIStateSiswawa = UIStateSiswa(
+    detailSiswa = this.toDetailSiswa(),
+    isEntryValid = isEntryValid
+)
+fun Siswa.toDetailSiswa(): DetailSiswa = DetailSiswa(
+    id = id,
+    nama = nama,
+    alamat = alamat,
+    telpon = telpon
+)
