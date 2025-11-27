@@ -1,5 +1,10 @@
 package com.example.myroom.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import com.example.myroom.repositori.RepositoriSiswa
 import com.example.myroom.room.Siswa
 
 
@@ -52,7 +57,7 @@ fun DetailSiswa.toSiswa(): Siswa = Siswa(
     telpon = telpon
 )
 
-fun Siswa.toUiStateSiswa(isEntryValid: Boolean = false): UIStateSiswawa = UIStateSiswa(
+fun Siswa.toUiStateSiswa(isEntryValid: Boolean = false): UIStateSiswa = UIStateSiswa(
     detailSiswa = this.toDetailSiswa(),
     isEntryValid = isEntryValid
 )

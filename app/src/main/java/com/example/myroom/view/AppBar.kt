@@ -11,9 +11,11 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.example.myroom.R
+
 
 @OptIn(
-    _markerClass = ExperimentalMaterial3Api::class
+     ExperimentalMaterial3Api::class
 )
 @Composable
 fun SiswaTopAppBar(
@@ -32,7 +34,7 @@ fun SiswaTopAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource("Back")
+                        contentDescription = stringResource(R.string.back) // Use the resource ID
                     )
                 }
             }

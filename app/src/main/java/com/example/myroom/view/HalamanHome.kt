@@ -34,10 +34,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myroom.room.Siswa
 import com.example.myroom.view.route.DestinasiHome
 import com.example.myroom.viewmodel.HomeViewModel
+import com.example.myroom.viewmodel.provider.PenyediaViewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 
 @OptIn(
-    _markerClass = ExperimentalMaterial3Api::class
+   ExperimentalMaterial3Api::class
 )
 @Composable
 fun HomeScreen(
@@ -60,11 +63,12 @@ fun HomeScreen(
             FloatingActionButton(
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(all = dimensionResource(id = 20.dp))
+                // Correct
+                modifier = Modifier.padding(all = 20.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = stringResource("Tambah Siswa")
+                    contentDescription = "Tambah Siswa"
                 )
             }
         }
@@ -90,18 +94,20 @@ fun BodyHome(
     ) {
         if (itemSiswa.isEmpty()) {
             Text(
-                text = stringResource("Tidak ada data Siswa. Tap + untuk menambah data"),
+                // Fix: Remove the stringResource() wrapper
+                text = "Tidak ada data Siswa. Tap + untuk menambah data",
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge
             )
         } else {
             ListSiswa(
                 itemSiswa = itemSiswa,
-                modifier = Modifier.padding(horizontal = dimensionResource(id = 8.dp))
+                modifier = Modifier.padding(horizontal =  8.dp)
             )
         }
     }
 }
+
 
 @Composable
 fun ListSiswa(
@@ -113,7 +119,7 @@ fun ListSiswa(
             DataSiswa(
                 siswa = person,
                 modifier = Modifier
-                    .padding(all = dimensionResource(id = 8.dp))
+                    .padding(all = 8.dp)
             )
         }
     }
@@ -129,8 +135,8 @@ fun DataSiswa(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
-            modifier = Modifier.padding(all = dimensionResource(id = 20.dp)),
-            verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = 8.dp))
+            modifier = Modifier.padding(all = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth()

@@ -4,5 +4,6 @@ import com.example.myroom.R
 
 object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
-    override val titleRes = "Data Siswa"
+    // Use the resource ID, which is an Int
+    override val titleRes = R.string.data_siswa
 }
