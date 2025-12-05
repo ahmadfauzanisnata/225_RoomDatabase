@@ -4,6 +4,8 @@ import com.example.myroom.R
 
 object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
-    // Use the resource ID, which is an Int
-    override val titleRes = R.string.data_siswa
+    override val titleRes = R.string.detail_siswa
+    const val itemIdArg = "idSiswa"
+    val routeWithArgs = "$route/{$itemIdArg}"
+
 }
