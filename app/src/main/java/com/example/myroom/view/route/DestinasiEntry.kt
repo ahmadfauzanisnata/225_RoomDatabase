@@ -7,4 +7,5 @@ object DestinasiEntry: DestinasiNavigasi {
 
     // Use the integer ID from R.string instead of a hardcoded string
     override val titleRes = R.string.entry_siswa
+
 }
