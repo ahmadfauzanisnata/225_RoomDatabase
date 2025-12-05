@@ -1,5 +1,6 @@
 package com.example.myroom.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -31,30 +33,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myroom.room.Siswa
 import com.example.myroom.view.route.DestinasiHome
 import com.example.myroom.viewmodel.HomeViewModel
 import com.example.myroom.viewmodel.provider.PenyediaViewModel
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import com.example.myroom.R
+import com.example.myroom.room.Siswa
 
-
-@OptIn(
-   ExperimentalMaterial3Api::class
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
-    modifier:  Modifier = Modifier,
+    navigateToItemDetail: (Int) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-
-    Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+    Scaffold (modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SiswaTopAppBar(
-                title = stringResource(id = DestinasiHome.titleRes),
+                title = stringResource(id = R.string.app_name),
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior
             )
@@ -63,63 +60,69 @@ fun HomeScreen(
             FloatingActionButton(
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
-                // Correct
-                modifier = Modifier.padding(all = 20.dp)
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Tambah Siswa"
+                    contentDescription = stringResource(id = R.string.entry_siswa)
                 )
             }
-        }
+        },
     ) { innerPadding ->
         val uiStateSiswa by viewModel.homeUiState.collectAsState()
         BodyHome(
             itemSiswa = uiStateSiswa.listSiswa,
-            modifier = Modifier
-                .padding(paddingValues = innerPadding)
+            onSiswaClick = navigateToItemDetail,
+            modifier = modifier
+                .padding(innerPadding)
                 .fillMaxSize()
+
         )
     }
 }
 
+
+
 @Composable
 fun BodyHome(
-    itemSiswa: List<Siswa>,
+    itemSiswa : List<Siswa>,
+    onSiswaClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
+
     ) {
         if (itemSiswa.isEmpty()) {
             Text(
-                // Fix: Remove the stringResource() wrapper
-                text = "Tidak ada data Siswa. Tap + untuk menambah data",
+                text = stringResource(id = R.string.deskripsi_no_item),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge
             )
-        } else {
+        }
+        else{
             ListSiswa(
                 itemSiswa = itemSiswa,
-                modifier = Modifier.padding(horizontal =  8.dp)
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small)),
+                onSiswaClick = {onSiswaClick(it.id)}
             )
         }
     }
 }
-
-
 @Composable
 fun ListSiswa(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Siswa) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = Modifier) {
+    LazyColumn(modifier = modifier) {
         items(items = itemSiswa, key = { it.id }) { person ->
             DataSiswa(
                 siswa = person,
                 modifier = Modifier
-                    .padding(all = 8.dp)
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .clickable { onSiswaClick(person) }
             )
         }
     }
@@ -130,13 +133,13 @@ fun DataSiswa(
     siswa: Siswa,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    Card (
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
-            modifier = Modifier.padding(all = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth()
@@ -145,7 +148,7 @@ fun DataSiswa(
                     text = siswa.nama,
                     style = MaterialTheme.typography.titleLarge,
                 )
-                Spacer(Modifier.weight(weight = 1f))
+                Spacer(Modifier.weight(1f))
                 Icon(
                     imageVector = Icons.Default.Phone,
                     contentDescription = null,

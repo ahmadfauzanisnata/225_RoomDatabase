@@ -1,30 +1,29 @@
 package com.example.myroom.viewmodel
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.myroom.repositori.RepositoriSiswa
 import com.example.myroom.room.Siswa
-
 
 class EntryViewModel(private val repositoriSiswa: RepositoriSiswa): ViewModel() {
     /**
      * Berisi status Siswa saat ini
      */
-    var uiStateSiswa by mutableStateOf(value = UIStateSiswa())
+    var uiStateSiswa by mutableStateOf(value = UiStateSiswa())
         private set
 
     /* Fungsi untuk memvalidasi input */
-    private fun validasiInput(uiState: DetailSiswa = uiStateSiswa.detailSiswa) : Boolean {
-        return with(receiver = uiState) {
+    private fun validasiInput(uiState: DetailSiswa = uiStateSiswa.detailSiswa ): Boolean {
+        return with(uiState) {
             nama.isNotBlank() && alamat.isNotBlank() && telpon.isNotBlank()
         }
     }
 
     fun updateUiState(detailSiswa: DetailSiswa) {
         uiStateSiswa =
-            UIStateSiswa(detailSiswa = detailSiswa, isEntryValid = validasiInput(uiState = detailSiswa))
+            UiStateSiswa(detailSiswa = detailSiswa, isEntryValid = validasiInput(uiState = detailSiswa))
     }
 
     /* Fungsi untuk menyimpan data yang di-entry */
@@ -37,7 +36,7 @@ class EntryViewModel(private val repositoriSiswa: RepositoriSiswa): ViewModel() 
 /**
  * Mewakili Status UI untuk Siswa.
  */
-data class UIStateSiswa(
+data class UiStateSiswa(
     val detailSiswa: DetailSiswa = DetailSiswa(),
     val isEntryValid: Boolean = false
 )
@@ -57,10 +56,11 @@ fun DetailSiswa.toSiswa(): Siswa = Siswa(
     telpon = telpon
 )
 
-fun Siswa.toUiStateSiswa(isEntryValid: Boolean = false): UIStateSiswa = UIStateSiswa(
+fun Siswa.toUiStateSiswa(isEntryValid: Boolean = false): UiStateSiswa = UiStateSiswa(
     detailSiswa = this.toDetailSiswa(),
     isEntryValid = isEntryValid
 )
+
 fun Siswa.toDetailSiswa(): DetailSiswa = DetailSiswa(
     id = id,
     nama = nama,
