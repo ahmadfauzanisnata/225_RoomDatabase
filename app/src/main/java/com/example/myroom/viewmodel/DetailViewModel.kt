@@ -20,4 +20,7 @@ class DetailViewModel (
 
     val uiDetailState: StateFlow<DetailSiswaUiState> =
         repositoriSiswa.getSiswaStream(idSiswa)
-            
+            .filterNotNull()
+            .map {
+                DetailSiswaUiState(detailSiswa = it.toDetailSiswa())
+            }.
