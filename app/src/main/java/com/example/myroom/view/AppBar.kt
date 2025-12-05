@@ -10,13 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import com.example.myroom.R
+import androidx.compose.ui.res.stringResource
 
-
-@OptIn(
-     ExperimentalMaterial3Api::class
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SiswaTopAppBar(
     title: String,
@@ -25,19 +22,17 @@ fun SiswaTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateUp: () -> Unit = {}
 ) {
-    CenterAlignedTopAppBar(
-        title = { Text(text = title) },
+    CenterAlignedTopAppBar(title = {Text(title)},
         modifier = modifier,
         scrollBehavior = scrollBehavior,
         navigationIcon = {
-            if (canNavigateBack) {
+            if(canNavigateBack) {
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back) // Use the resource ID
+                        contentDescription = stringResource(R.string.back)
                     )
                 }
             }
-        }
-    )
+        })
 }
