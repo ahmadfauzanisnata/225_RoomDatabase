@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 import com.example.myroom.repositori.RepositoriSiswa
-import com.example.myroom.view.route.DestinasiDetailSiswa
+import com.example.myroom.view.route.DestinasiEditSiswa
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class EditViewModel(
     var uiStateSiswa by mutableStateOf(UiStateSiswa())
         private set
 
-    private val idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetailSiswa.itemIdArg])
+    private val idSiswa: Int = checkNotNull(savedStateHandle[DestinasiEditSiswa.itemIdArg])
 
     init {
         viewModelScope.launch {

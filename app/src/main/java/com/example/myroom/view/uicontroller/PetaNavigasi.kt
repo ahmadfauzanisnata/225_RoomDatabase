@@ -15,12 +15,9 @@ import com.example.myroom.view.route.DestinasiDetailSiswa
 import com.example.myroom.view.route.DestinasiDetailSiswa.itemIdArg
 import com.example.myroom.view.route.DestinasiEditSiswa
 import com.example.myroom.view.route.DestinasiEntry
-import com.example.myroom.view.DetailSiswaScreen
-import com.example.myroom.view.EditSiswaScreen
-import com.example.myroom.view.EntrySiswaScreen
+
 import com.example.myroom.view.HomeScreen
 
-import com.example.myroom.view.route.DestinasiDetailSiswa.itemIdArg
 
 import com.example.myroom.view.route.DestinasiHome
 
